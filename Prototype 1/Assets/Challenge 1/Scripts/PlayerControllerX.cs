@@ -9,7 +9,7 @@ public class PlayerControllerX : MonoBehaviour
     public float verticalInput;
     public float horizontalInput;
     public float turnSpeed;
-    public double rotationCorrection;
+    public float rotationCorrection;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class PlayerControllerX : MonoBehaviour
 
         // tilt the plane up/down based on up/down arrow keys
         transform.Rotate(Vector3.right * rotationSpeed * Time.deltaTime * verticalInput);
-        transform.Rotate(Vector3.forward, turnSpeed * Time.deltaTime * horizontalInput);
-        // transform.rotation.x = transform.rotation.x*rotationCorrection;
+        transform.Rotate(Vector3.forward, (-turnSpeed * Time.deltaTime * horizontalInput)-((transform.rotation.z+(transform.rotation.z/rotationCorrection))*Time.deltaTime));
+        transform.Rotate(Vector3.up,turnSpeed*Time.deltaTime*horizontalInput);
     }
 }
