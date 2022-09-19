@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spin : MonoBehaviour
+public class PlayerTrail : MonoBehaviour
 {
-    public float spinSpeed;
-    public float accelerateInput;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +14,8 @@ public class Spin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        accelerateInput = Input.GetAxis("Fire1");
-        transform.Rotate(Vector3.forward,Time.deltaTime*spinSpeed*(accelerateInput*0.75f+1));
+        transform.position = player.transform.position;
+        transform.rotation = player.transform.rotation;
+        transform.Translate(Vector3.forward*-Time.deltaTime);
     }
 }
