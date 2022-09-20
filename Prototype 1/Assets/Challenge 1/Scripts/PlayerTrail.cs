@@ -12,10 +12,10 @@ public class PlayerTrail : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         transform.position = player.transform.position;
         transform.rotation = player.transform.rotation;
-        transform.Translate(Vector3.forward*-Time.deltaTime);
+        transform.Translate(Vector3.forward*-2.0f);
     }
 }

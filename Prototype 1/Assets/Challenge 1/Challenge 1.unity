@@ -571,6 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 825415029}
+  accelerateInput: 0
 --- !u!1 &673814960
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,11 +832,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0232a093d67e448b7a80e945acf8e227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  rotationSpeed: 80
+  speed: 40
+  rotationSpeed: 100
   verticalInput: 0
   horizontalInput: 0
-  turnSpeed: 80
+  turnSpeed: 100
   rotationCorrection: 0.001
   accelerateInput: 0
 --- !u!1 &899755176
@@ -1793,7 +1794,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 0

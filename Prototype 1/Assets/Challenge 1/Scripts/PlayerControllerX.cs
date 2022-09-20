@@ -30,7 +30,7 @@ public class PlayerControllerX : MonoBehaviour
 
         // tilt the plane up/down based on up/down arrow keys
         transform.Rotate(Vector3.right * rotationSpeed * Time.deltaTime * verticalInput);
-        transform.Rotate(Vector3.forward, (-turnSpeed * Time.deltaTime * horizontalInput)-((transform.rotation.z+(transform.rotation.z/rotationCorrection))*Time.deltaTime));
+        transform.Rotate(Vector3.forward, (-turnSpeed * Time.deltaTime * horizontalInput)+180-(((transform.rotation.z+(transform.rotation.z/rotationCorrection))*Time.deltaTime)+180));
         transform.Rotate(Vector3.up,turnSpeed*Time.deltaTime*horizontalInput);
     }
 }
