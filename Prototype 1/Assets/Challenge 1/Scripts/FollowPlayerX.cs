@@ -20,7 +20,8 @@ public class FollowPlayerX : MonoBehaviour
         accelerateInput = Input.GetAxis("Fire1");
         transform.Rotate(Vector3.up,(transform.rotation.y+180-(plane.transform.rotation.y+180))*-2);
         transform.position = plane.transform.position;
-        transform.Translate(Vector3.forward*-7.0f*(1.0f+accelerateInput*0.25f));
-        transform.Translate(Vector3.up*3.0f);
+        Camera.main.fieldOfView = 60.0f+(accelerateInput*20.0f);
+        transform.Translate(Vector3.forward*-9.0f);
+        transform.Translate(Vector3.up*2.0f);
     }
 }
