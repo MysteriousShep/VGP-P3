@@ -6,11 +6,12 @@ public class PlayerControllerX : MonoBehaviour
 {
     public float speed;
     public float rotationSpeed;
-    public float verticalInput;
-    public float horizontalInput;
+    private float verticalInput;
+    private float horizontalInput;
     public float turnSpeed;
     public float rotationCorrection;
-    public float accelerateInput;
+    private float accelerateInput;
+    private bool jumpInput;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +26,15 @@ public class PlayerControllerX : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
         accelerateInput = Input.GetAxis("Fire1");
+        jumpInput = Input.GetButtonDown("Jump");
         // move the plane forward at a constant rate
         transform.Translate(Vector3.forward * Time.deltaTime*(speed+speed*accelerateInput*0.75f));
-
+        if (jumpInput) {
+            transform.Translate(Vector3.forward*speed*2.0f);
+        }
         // tilt the plane up/down based on up/down arrow keys
-        transform.Rotate(Vector3.right * rotationSpeed * Time.deltaTime * verticalInput);
-        transform.Rotate(Vector3.forward, (-turnSpeed * Time.deltaTime * horizontalInput)+180-(((transform.rotation.z+(transform.rotation.z/rotationCorrection))*Time.deltaTime)+180));
-        transform.Rotate(Vector3.up,turnSpeed*Time.deltaTime*horizontalInput);
+        transform.Rotate(Vector3.right * rotationSpeed * Time.deltaTime * verticalInput*(1.0f+accelerateInput*0.75f));
+        transform.Rotate(Vector3.forward, ((-turnSpeed * Time.deltaTime * horizontalInput)+180-(((transform.rotation.z+(transform.rotation.z/rotationCorrection))*Time.deltaTime)+180))*(1.0f+accelerateInput*0.75f));
+        transform.Rotate(Vector3.up,turnSpeed*Time.deltaTime*horizontalInput*(1.0f+accelerateInput*0.75f));
     }
 }
