@@ -20,7 +20,8 @@ public class PointerSphere : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             transform.position = hit.point;
-            transform.position = new Vector3(transform.position.x,0,transform.position.z);
+            
         }
+        transform.position = new Vector3(transform.position.x,0,transform.position.z);
     }
 }
