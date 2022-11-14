@@ -6,16 +6,22 @@ public class PlayerMovement : MonoBehaviour
 {
     public Vector2 movement;
     public float speed = 1f;
-    //public Rigidbody rb;
+    public Rigidbody rb;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        transform.Translate((Vector3.right)*movement.x*speed);
-        transform.Translate((Vector3.forward)*movement.y*speed);
-        //rb.velocity = new Vector3(movement.x,0,movement.y);
+        //transform.Translate((Vector3.right)*movement.x*speed);
+        //transform.Translate((Vector3.forward)*movement.y*speed);
+        float yVel = rb.velocity.y;
+        if (Input.GetButtonDown("Jump"))
+        {
+            yVel = 10.0f;
+        }
+
+        rb.velocity = new Vector3((movement.x+movement.y)*speed,yVel,(movement.y-movement.x)*speed);
     }
     
 }
