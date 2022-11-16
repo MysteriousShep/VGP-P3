@@ -21,6 +21,6 @@ public class PointerSphere : MonoBehaviour
         {
             transform.position = hit.point;
         }
-        transform.position = new Vector3(transform.position.x,player.transform.position.y,transform.position.z);
+        //transform.position = new Vector3(transform.position.x,player.transform.position.y,transform.position.z);
     }
 }

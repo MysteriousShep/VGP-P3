@@ -13,12 +13,14 @@ GameObject:
   - component: {fileID: 3636385128695554849}
   - component: {fileID: 8548158805657153721}
   - component: {fileID: 5505455347076848830}
+  - component: {fileID: 9146542840500763571}
+  - component: {fileID: 3336316042133731685}
   m_Layer: 2
   m_Name: Player Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &3834688735376281147
 Transform:
@@ -52,7 +54,7 @@ MeshRenderer:
   m_GameObject: {fileID: 7143367258069793571}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -63,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 98133d23283d7a743948582bd897068a, type: 2}
+  - {fileID: 2100000, guid: 2c70d49559c982d46b2d2ca51ec3e91a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,4 +112,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf9007a64efb454088f078cce6ed85e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 15
+--- !u!114 &9146542840500763571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7143367258069793571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85b7482cda24d7418d3fd7c6e7a425c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounds: 10
+--- !u!54 &3336316042133731685
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7143367258069793571}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
