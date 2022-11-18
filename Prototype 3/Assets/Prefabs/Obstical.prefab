@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3756643080096292897}
   m_Layer: 0
   m_Name: Obstical
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,4 +159,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fe9ea68edfee545bc8f43a4e45c14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
