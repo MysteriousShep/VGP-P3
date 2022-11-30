@@ -29,6 +29,7 @@ public class MoveForwards : MonoBehaviour
             if (!playedParticles)
             {
                 destroyFx.Play();
+                GetComponent<MeshRenderer>().enabled = false;
                 playedParticles = true;
             }
         }
