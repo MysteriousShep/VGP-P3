@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public int deccelleration = 3;
     private float xVelocity = 0;
     private float xSpeed = 0;
+    private float sit = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Jump");
+        sit = Input.GetAxisRaw("Vertical");
     }
     void FixedUpdate()
     {
@@ -82,14 +84,21 @@ public class PlayerController : MonoBehaviour
             jumpFrame = 0;
             coyoteFrame = 0;
             yVelocity = 0;
-            if (xSpeed != 0)
+            if (sit != -1)
             {
-                playerAnimator.SetTrigger("Run");
-                
+                if (xSpeed != 0)
+                {
+                    playerAnimator.SetTrigger("Run");
+                    
+                }
+                else
+                {
+                    playerAnimator.SetTrigger("Idle");
+                }
             }
             else
             {
-                playerAnimator.SetTrigger("Idle");
+                playerAnimator.SetTrigger("Sit");
             }
         }
         else
@@ -165,6 +174,14 @@ public class PlayerController : MonoBehaviour
                 {
                     xSpeed = 0;
                 }
+            }
+        }
+        if (sit <= -1 && grounded)
+        {
+            xSpeed *= 0.75f;
+            if (Mathf.Abs(xSpeed) < speed/deccelleration)
+            {
+                xSpeed = 0;
             }
         }
         if (xSpeed < 0)
