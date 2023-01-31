@@ -157,7 +157,7 @@ MonoBehaviour:
   speed: 0.15
   movement: {x: 0, y: 0}
   playerAnimator: {fileID: 0}
-  jumpSpeed: 0.3
+  jumpSpeed: 0.125
   jumpDuration: 10
   gravity: 1
   coyoteTime: 5

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private float xVelocity = 0;
     private float xSpeed = 0;
     private float sit = 0;
+    private Collider2D hit;
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +36,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Vector3 max = new Vector2(transform.position.x+0.5f,transform.position.y+0.5f);
-        Vector3 min = new Vector2(transform.position.x-0.5f,transform.position.y-0.8f);
-        Vector2 corner1 = new Vector2(max.x-0.05f,min.y-0.0f+yVelocity);
-        Vector2 corner2 = new Vector2(min.x+0.05f,min.y+1.0f+yVelocity);
-        Collider2D hit = Physics2D.OverlapArea(corner1,corner2);
+        GetHitBoxAtPosition(transform.position.x,transform.position.y+yVelocity,0.8f);
 
         
 
@@ -48,36 +45,23 @@ public class PlayerController : MonoBehaviour
         {
             
             
-            corner1 = new Vector2(max.x-0.05f,min.y-0.0f);
-            corner2 = new Vector2(min.x+0.05f,min.y+1.0f);
-            hit = Physics2D.OverlapArea(corner1,corner2);
+            GetHitBoxAtPosition(transform.position.x,transform.position.y,0.8f);
             for (int i = 0; i < 30; i++)
             {
                 if (hit == null) 
                 {
-                    transform.Translate(new Vector3(0,0.01f*Mathf.Sign(yVelocity),0));
-                    max = new Vector2(transform.position.x+0.5f,transform.position.y+0.5f);
-                    min = new Vector2(transform.position.x-0.5f,transform.position.y-0.8f);
-                    corner1 = new Vector2(max.x-0.05f,min.y-0.0f);
-                    corner2 = new Vector2(min.x+0.05f,min.y+1.0f);
-                    hit = Physics2D.OverlapArea(corner1,corner2);
+                    transform.Translate(new Vector3(0,0.01f*Mathf.Sign(yVelocity),0),Space.World);
+                    GetHitBoxAtPosition(transform.position.x,transform.position.y,0.8f);
                 }
             }
             yVelocity = 0;
-            max = new Vector2(transform.position.x+0.5f,transform.position.y+0.5f);
-            min = new Vector2(transform.position.x-0.5f,transform.position.y-0.9f);
-            corner1 = new Vector2(max.x-0.05f,min.y-0.0f);
-            corner2 = new Vector2(min.x+0.05f,min.y+1.0f);
-            hit = Physics2D.OverlapArea(corner1,corner2);
+            GetHitBoxAtPosition(transform.position.x,transform.position.y,0.9f);
             if (hit != null && hit.gameObject != gameObject)
             {
                 grounded = true;
             }
         }
-        Debug.DrawLine(new Vector3(corner1.x,corner1.y,0),new Vector3(corner2.x,corner1.y,0),Color.red);
-        Debug.DrawLine(new Vector3(corner2.x,corner1.y,0),new Vector3(corner2.x,corner2.y,0),Color.red);
-        Debug.DrawLine(new Vector3(corner2.x,corner2.y,0),new Vector3(corner1.x,corner2.y,0),Color.red);
-        Debug.DrawLine(new Vector3(corner1.x,corner2.y,0),new Vector3(corner1.x,corner1.y,0),Color.red);
+        
         yVelocity -= gravity*Time.deltaTime;
         if (grounded) 
         {
@@ -131,7 +115,8 @@ public class PlayerController : MonoBehaviour
         {
             coyoteFrame += 1;
         }
-        transform.Translate(new Vector3(0,yVelocity,0));
+        transform.Translate(new Vector3(0,yVelocity,0),Space.World);
+        xVelocity -= xSpeed;
         if (movement.x != 0)
         {
             if (movement.x < 0)
@@ -176,6 +161,22 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        if (xVelocity < 0)
+        {
+            xVelocity += speed/deccelleration;
+            if (xVelocity > 0)
+            {
+                xVelocity = 0;
+            }
+        }
+        if (xVelocity > 0)
+        {
+            xVelocity -= speed/deccelleration;
+            if (xVelocity < 0)
+            {
+                xVelocity = 0;
+            }
+        }
         if (sit <= -1 && grounded)
         {
             xSpeed *= 0.75f;
@@ -193,29 +194,20 @@ public class PlayerController : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
         }
         playerAnimator.SetFloat("xSpeed",Mathf.Abs(xSpeed/speed));
-        xVelocity = xSpeed;
-        max = new Vector2(transform.position.x+0.5f,transform.position.y+0.5f);
-        min = new Vector2(transform.position.x-0.5f,transform.position.y-0.7f);
-        corner1 = new Vector2(max.x-0.05f+xSpeed,min.y-0.0f);
-        corner2 = new Vector2(min.x+0.05f+xSpeed,min.y+1.0f);
-        hit = Physics2D.OverlapArea(corner1,corner2);
+        xVelocity += xSpeed;
+        GetHitBoxAtPosition(transform.position.x+xVelocity,transform.position.y);
         if (hit != null && hit.gameObject != gameObject) 
         {
             
             
-            corner1 = new Vector2(max.x-0.05f,min.y-0.0f);
-            corner2 = new Vector2(min.x+0.05f,min.y+1.0f);
-            hit = Physics2D.OverlapArea(corner1,corner2);
+            GetHitBoxAtPosition(transform.position.x,transform.position.y);
             for (int i = 0; i < 30; i++)
             {
                 if (hit == null) 
                 {
                     transform.Translate(new Vector3(0.01f*Mathf.Sign(xVelocity),0,0));
-                    max = new Vector2(transform.position.x+0.5f,transform.position.y+0.5f);
-                    min = new Vector2(transform.position.x-0.5f,transform.position.y-0.7f);
-                    corner1 = new Vector2(max.x-0.05f,min.y-0.0f);
-                    corner2 = new Vector2(min.x+0.05f,min.y+1.0f);
-                    hit = Physics2D.OverlapArea(corner1,corner2);
+                    GetHitBoxAtPosition(transform.position.x,transform.position.y);
+                    
                 }
             }
             transform.Translate(new Vector3(-0.01f*Mathf.Sign(xVelocity),0,0));
@@ -223,5 +215,43 @@ public class PlayerController : MonoBehaviour
             xSpeed = 0;
         }
         transform.Translate(new Vector3(xVelocity,0,0));
+        if (Input.GetButton("Fire1"))
+        {
+            LaunchTowards(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,Camera.main.ScreenToWorldPoint(Input.mousePosition).y,0.5f);
+        }
+        
     }
+
+    void GetHitBoxAtPosition(float x, float y,float height = 0.7f)
+    {
+        Vector2 max = new Vector2(x+0.45f,y+1f);
+        Vector2 min = new Vector2(x-0.45f,y-height);
+        hit = Physics2D.OverlapArea(max,min);
+        Debug.DrawLine(new Vector3(max.x,max.y,0),new Vector3(min.x,max.y,0),Color.red);
+        Debug.DrawLine(new Vector3(min.x,max.y,0),new Vector3(min.x,min.y,0),Color.red);
+        Debug.DrawLine(new Vector3(min.x,min.y,0),new Vector3(max.x,min.y,0),Color.red);
+        Debug.DrawLine(new Vector3(max.x,min.y,0),new Vector3(max.x,max.y,0),Color.red);
+    }
+
+    void LaunchTowards(float x, float y, float speed = 0.0f)
+    {
+        Vector3 targetPosition = new Vector3(x,y,transform.position.z);
+        Vector3 newVelocity = (targetPosition - transform.position).normalized * speed;
+        xVelocity = newVelocity.x;
+        yVelocity = newVelocity.y;
+    }
+
+    void Grapple(float x, float y, float speed = 1.0f)
+    {
+        Vector3 prevPosition = transform.position;
+        Vector3 targetPosition = new Vector3(x,y,transform.position.z);
+        float angle = Vector2.SignedAngle(Vector2.up, targetPosition - transform.position);
+
+        Vector3 targetRotation = new Vector3(0, 0, angle);
+        transform.rotation = Quaternion.Euler(targetRotation);
+        transform.Translate(transform.up*speed*Time.deltaTime);
+        yVelocity = 0;
+        
+    }
+
 }
