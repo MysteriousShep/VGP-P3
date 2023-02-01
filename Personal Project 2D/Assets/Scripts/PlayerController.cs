@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float xSpeed = 0;
     private float sit = 0;
     private Collider2D hit;
+    private Vector2 grapplePoint;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,11 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            grapplePoint = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+        }
+        
         GetHitBoxAtPosition(transform.position.x,transform.position.y+yVelocity,0.8f);
 
         
@@ -62,7 +68,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        yVelocity -= gravity*Time.deltaTime;
+        yVelocity -= gravity*Time.fixedDeltaTime;
         if (grounded) 
         {
             jumpFrame = 0;
@@ -217,7 +223,7 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector3(xVelocity,0,0));
         if (Input.GetButton("Fire1"))
         {
-            LaunchTowards(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,Camera.main.ScreenToWorldPoint(Input.mousePosition).y,0.5f);
+            Grapple(grapplePoint.x,grapplePoint.y,2.5f);
         }
         
     }
@@ -241,17 +247,19 @@ public class PlayerController : MonoBehaviour
         yVelocity = newVelocity.y;
     }
 
-    void Grapple(float x, float y, float speed = 1.0f)
+    void Grapple(float x, float y, float tetherLength = 1.0f)
     {
-        Vector3 prevPosition = transform.position;
-        Vector3 targetPosition = new Vector3(x,y,transform.position.z);
-        float angle = Vector2.SignedAngle(Vector2.up, targetPosition - transform.position);
-
-        Vector3 targetRotation = new Vector3(0, 0, angle);
-        transform.rotation = Quaternion.Euler(targetRotation);
-        transform.Translate(transform.up*speed*Time.deltaTime);
-        yVelocity = 0;
+        Vector3 oldPos = transform.position;
+        Vector3 nextPos = transform.position-new Vector3(xVelocity,yVelocity,0);
         
+        if (Vector3.Distance(nextPos,new Vector3(x,y,nextPos.z)) > tetherLength)
+        {
+            transform.position = new Vector3(x,y,transform.position.z)+((nextPos-new Vector3(x,y,transform.position.z)).normalized*tetherLength);
+            
+            xVelocity = (oldPos.x-transform.position.x)*Time.fixedDeltaTime;
+            yVelocity = (oldPos.y-transform.position.y)*Time.fixedDeltaTime;
+        }
+
     }
 
 }
