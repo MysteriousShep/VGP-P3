@@ -21,12 +21,15 @@ public class PlayerController : MonoBehaviour
     private float xSpeed = 0;
     private float sit = 0;
     private Collider2D hit;
-    private Vector2 grapplePoint;
+    private Vector3 grapplePoint;
+    public float grappleLength = 2.5f;
+    private float nonGrappleSpeed = 0.15f;
 
     // Start is called before the first frame update
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
+        nonGrappleSpeed = speed;
     }
 
     void Update()
@@ -34,14 +37,20 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Jump");
         sit = Input.GetAxisRaw("Vertical");
+        if (Input.GetButtonDown("Fire1"))
+        {
+            grapplePoint = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,Camera.main.ScreenToWorldPoint(Input.mousePosition).y,0);
+            grapplePoint = transform.position-((transform.position-grapplePoint).normalized*grappleLength);
+        }
     }
     void FixedUpdate()
     {
+        
         if (Input.GetButtonDown("Fire1"))
         {
-            grapplePoint = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+            grapplePoint = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,Camera.main.ScreenToWorldPoint(Input.mousePosition).y,0);
+            grapplePoint = transform.position-((transform.position-grapplePoint).normalized*grappleLength);
         }
-        
         GetHitBoxAtPosition(transform.position.x,transform.position.y+yVelocity,0.8f);
 
         
@@ -122,7 +131,21 @@ public class PlayerController : MonoBehaviour
             coyoteFrame += 1;
         }
         transform.Translate(new Vector3(0,yVelocity,0),Space.World);
+        
         xVelocity -= xSpeed;
+        if (Input.GetButton("Fire1"))
+        {
+            speed = nonGrappleSpeed;
+            speed *= 2;
+        }
+        else
+        {
+            speed = nonGrappleSpeed;
+            if (Mathf.Abs(xSpeed) > speed)
+            {
+                xSpeed = Mathf.Sign(xSpeed)*speed;
+            }
+        }
         if (movement.x != 0)
         {
             if (movement.x < 0)
@@ -200,19 +223,20 @@ public class PlayerController : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
         }
         playerAnimator.SetFloat("xSpeed",Mathf.Abs(xSpeed/speed));
+        
         xVelocity += xSpeed;
         GetHitBoxAtPosition(transform.position.x+xVelocity,transform.position.y);
         if (hit != null && hit.gameObject != gameObject) 
         {
             
             
-            GetHitBoxAtPosition(transform.position.x,transform.position.y);
+            GetHitBoxAtPosition(transform.position.x,transform.position.y,0.7f,0.9f);
             for (int i = 0; i < 30; i++)
             {
                 if (hit == null) 
                 {
                     transform.Translate(new Vector3(0.01f*Mathf.Sign(xVelocity),0,0));
-                    GetHitBoxAtPosition(transform.position.x,transform.position.y);
+                    GetHitBoxAtPosition(transform.position.x,transform.position.y,0.7f,0.9f);
                     
                 }
             }
@@ -223,15 +247,15 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector3(xVelocity,0,0));
         if (Input.GetButton("Fire1"))
         {
-            Grapple(grapplePoint.x,grapplePoint.y,2.5f);
+            Grapple(grapplePoint.x,grapplePoint.y,grappleLength);
         }
         
     }
 
-    void GetHitBoxAtPosition(float x, float y,float height = 0.7f)
+    void GetHitBoxAtPosition(float x, float y,float minHeight = 0.7f, float maxHeight = 1.0f)
     {
-        Vector2 max = new Vector2(x+0.45f,y+1f);
-        Vector2 min = new Vector2(x-0.45f,y-height);
+        Vector2 max = new Vector2(x+0.45f,y+maxHeight);
+        Vector2 min = new Vector2(x-0.45f,y-minHeight);
         hit = Physics2D.OverlapArea(max,min);
         Debug.DrawLine(new Vector3(max.x,max.y,0),new Vector3(min.x,max.y,0),Color.red);
         Debug.DrawLine(new Vector3(min.x,max.y,0),new Vector3(min.x,min.y,0),Color.red);
@@ -251,13 +275,16 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 oldPos = transform.position;
         Vector3 nextPos = transform.position-new Vector3(xVelocity,yVelocity,0);
-        
+        Debug.DrawLine(new Vector3(x,y,0),transform.position,Color.white);
         if (Vector3.Distance(nextPos,new Vector3(x,y,nextPos.z)) > tetherLength)
         {
-            transform.position = new Vector3(x,y,transform.position.z)+((nextPos-new Vector3(x,y,transform.position.z)).normalized*tetherLength);
+            xVelocity = (nextPos.x-oldPos.x);
+            yVelocity = (nextPos.y-oldPos.y);
+            nextPos = transform.position-new Vector3(xVelocity,yVelocity,0);
+            nextPos = new Vector3(x,y,transform.position.z)+((nextPos-new Vector3(x,y,transform.position.z)).normalized*tetherLength);
             
-            xVelocity = (oldPos.x-transform.position.x)*Time.fixedDeltaTime;
-            yVelocity = (oldPos.y-transform.position.y)*Time.fixedDeltaTime;
+            xVelocity = (nextPos.x-oldPos.x);
+            yVelocity = (nextPos.y-oldPos.y);
         }
 
     }

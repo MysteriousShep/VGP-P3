@@ -163,6 +163,7 @@ MonoBehaviour:
   coyoteTime: 5
   accelleration: 12
   deccelleration: 6
+  grappleLength: 3
 --- !u!212 &304071283
 SpriteRenderer:
   m_ObjectHideFlags: 0
