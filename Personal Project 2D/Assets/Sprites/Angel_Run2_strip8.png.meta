@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6016b2e1ba28128428815200142dfb87
+guid: 8f018a84a89c761429767f55e56fe431
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Angel_Sit_strip4_0
+      name: Angel_Run2_strip8_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 620e7180fc3e325409b552a30bcb302f
-      internalID: 590540969
+      spriteID: 91c190c97b183bd4c92d85a9d086657a
+      internalID: 246619731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angel_Sit_strip4_1
+      name: Angel_Run2_strip8_1
       rect:
         serializedVersion: 2
         x: 32
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71a493be857265b42b37cd3f2e097f68
-      internalID: 43604291
+      spriteID: d8853ba21d522b44aa78a8c27712b321
+      internalID: -1132867715
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angel_Sit_strip4_2
+      name: Angel_Run2_strip8_2
       rect:
         serializedVersion: 2
         x: 64
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ca2f807a3230704babc47c0431df73d
-      internalID: -353522308
+      spriteID: 15c0df25060a09641a2a82efe2ada397
+      internalID: -1156818506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angel_Sit_strip4_3
+      name: Angel_Run2_strip8_3
       rect:
         serializedVersion: 2
         x: 96
@@ -182,8 +182,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8591e01776be98b49b72c292b411cf7c
-      internalID: -687276567
+      spriteID: b32306b5924d19c44a6ea7bb55483a39
+      internalID: 1752503271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Run2_strip8_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3ad76c5bd7ce704b89ecabc76e5681a
+      internalID: 2040083456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Run2_strip8_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6ec51a1e4a825d4a962d6d19fcbcc61
+      internalID: 289223182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Run2_strip8_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 496544867aef43b4e94d1e192e4f8ef7
+      internalID: 986405735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Run2_strip8_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6f3354a488209241853e24306fcb32d
+      internalID: 387091843
       vertices: []
       indices: 
       edges: []
@@ -199,10 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Angel_Sit_strip4_1: 43604291
-      Angel_Sit_strip4_3: -687276567
-      Angel_Sit_strip4_0: 590540969
-      Angel_Sit_strip4_2: -353522308
+      Angel_Run2_strip8_0: 246619731
+      Angel_Run2_strip8_6: 986405735
+      Angel_Run2_strip8_3: 1752503271
+      Angel_Run2_strip8_7: 387091843
+      Angel_Run2_strip8_5: 289223182
+      Angel_Run2_strip8_2: -1156818506
+      Angel_Run2_strip8_1: -1132867715
+      Angel_Run2_strip8_4: 2040083456
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
