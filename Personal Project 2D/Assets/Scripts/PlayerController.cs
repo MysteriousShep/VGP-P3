@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public float minGrappleLength = 3.0f;
     private float grappleTime = 0;
     public float grappleShrinkDelay = 10;
+    public int jumps = 2;
+    private int maxJumps = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         nonGrappleSpeed = speed;
         maxGrappleLength = grappleLength;
+        maxJumps = jumps;
     }
 
     void Update()
@@ -66,6 +69,10 @@ public class PlayerController : MonoBehaviour
         {
             grappling = false;
             grappleLine.SetActive(false);
+        }
+        if (Input.GetButton("Fire2"))
+        {
+            grappleTime = grappleShrinkDelay+1;
         }
     }
     void FixedUpdate()
@@ -102,6 +109,7 @@ public class PlayerController : MonoBehaviour
         if (grounded) 
         {
             jumpFrame = 0;
+            jumps = maxJumps;
             coyoteFrame = 0;
             yVelocity = 0;
             if (sit != -1)
@@ -139,17 +147,30 @@ public class PlayerController : MonoBehaviour
         if (jumpFrame < jumpDuration && movement.y > 0 && coyoteFrame < coyoteTime) 
         {
             jumpFrame += 1;
+            coyoteFrame = 0;
             yVelocity = jumpSpeed;
             playerAnimator.SetTrigger("Jump");
             grounded = false;
         } 
-        else if (jumpFrame < jumpDuration && (jumpFrame > 0 || coyoteFrame >= coyoteTime) && !grounded) 
+        else if ((jumpFrame > 0 || coyoteFrame >= coyoteTime) && !grounded) 
         {
             jumpFrame += 99;
         }
         else if (!grounded && coyoteFrame < coyoteTime)
         {
             coyoteFrame += 1;
+        } 
+        else if (jumpFrame < jumpDuration+5)
+        {
+            jumpFrame += 1;
+        }
+        else if (jumpFrame >= jumpDuration+5 && movement.y > 0 && coyoteFrame >= coyoteTime && !grounded && jumps > 0 && !grappling)
+        {
+            jumpFrame = jumpDuration/2;
+            coyoteFrame = 0;
+            jumps -= 1;
+            yVelocity = jumpSpeed*2f;
+            playerAnimator.SetTrigger("Jump");
         }
         transform.Translate(new Vector3(0,yVelocity,0),Space.World);
         
@@ -157,7 +178,7 @@ public class PlayerController : MonoBehaviour
         if (grappling)
         {
             speed = nonGrappleSpeed;
-            speed *= 2f;
+            speed *= 1.5f;
         }
         else
         {
