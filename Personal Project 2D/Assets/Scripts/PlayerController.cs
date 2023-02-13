@@ -78,7 +78,67 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         
-        
+        if (grappling)
+        {
+            
+            grappleLine.SetActive(true);
+            Grapple(grapplePoint.x,grapplePoint.y,grappleLength);
+            if ((grappleLength > minGrappleLength && grappleTime > grappleShrinkDelay)) 
+            {
+                //grappleLength -= 0.25f;
+            }
+            else if (grappleTime > grappleShrinkDelay)
+            {
+                //grappleLength = minGrappleLength;
+            }
+            else
+            {
+                grappleTime += 1;
+            }
+            GetHitBoxAtPosition(transform.position.x+xVelocity+xSpeed,transform.position.y+yVelocity,0.9f,1f);
+            if (hit != null)
+            {
+                //grappleLength -= 0.25f;
+                if (grappleLength < minGrappleLength)
+                {
+                    //grappleLength = minGrappleLength;
+                }
+            }
+            
+        }
+        else
+        {
+            
+            transform.rotation = Quaternion.Euler(transform.eulerAngles*0.9f);
+        }
+        if (jumpFrame < jumpDuration && movement.y > 0 && coyoteFrame < coyoteTime) 
+        {
+            jumpFrame += 1;
+            coyoteFrame = 0;
+            yVelocity = jumpSpeed;
+            playerAnimator.SetTrigger("Jump");
+            grounded = false;
+        } 
+        else if ((jumpFrame > 0 || coyoteFrame >= coyoteTime) && !grounded && jumpFrame < jumpDuration+5) 
+        {
+            jumpFrame += 99;
+        }
+        else if (jumpFrame < jumpDuration+5 && coyoteFrame >= coyoteTime)
+        {
+            jumpFrame += 1;
+        }
+        else if (jumpFrame >= jumpDuration+5 && movement.y > 0 && coyoteFrame >= coyoteTime && !grounded && jumps > 0 && !grappling)
+        {
+            jumpFrame = jumpDuration/2;
+            coyoteFrame = 0;
+            jumps -= 1;
+            yVelocity = jumpSpeed*2f;
+            playerAnimator.SetTrigger("Jump");
+        }
+        if (!grounded && coyoteFrame < coyoteTime)
+        {
+            coyoteFrame += 1;
+        } 
         GetHitBoxAtPosition(transform.position.x,transform.position.y+yVelocity,0.8f);
 
         
@@ -98,7 +158,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             yVelocity = 0;
-            GetHitBoxAtPosition(transform.position.x,transform.position.y,0.9f,0.9f);
+            GetHitBoxAtPosition(transform.position.x,transform.position.y,0.9f,0.1f);
             if (hit != null && hit.gameObject != gameObject)
             {
                 grounded = true;
@@ -144,34 +204,7 @@ public class PlayerController : MonoBehaviour
                 playerAnimator.SetTrigger("Hang");
             }
         }
-        if (jumpFrame < jumpDuration && movement.y > 0 && coyoteFrame < coyoteTime) 
-        {
-            jumpFrame += 1;
-            coyoteFrame = 0;
-            yVelocity = jumpSpeed;
-            playerAnimator.SetTrigger("Jump");
-            grounded = false;
-        } 
-        else if ((jumpFrame > 0 || coyoteFrame >= coyoteTime) && !grounded) 
-        {
-            jumpFrame += 99;
-        }
-        else if (!grounded && coyoteFrame < coyoteTime)
-        {
-            coyoteFrame += 1;
-        } 
-        else if (jumpFrame < jumpDuration+5)
-        {
-            jumpFrame += 1;
-        }
-        else if (jumpFrame >= jumpDuration+5 && movement.y > 0 && coyoteFrame >= coyoteTime && !grounded && jumps > 0 && !grappling)
-        {
-            jumpFrame = jumpDuration/2;
-            coyoteFrame = 0;
-            jumps -= 1;
-            yVelocity = jumpSpeed*2f;
-            playerAnimator.SetTrigger("Jump");
-        }
+        
         transform.Translate(new Vector3(0,yVelocity,0),Space.World);
         
         xVelocity -= xSpeed;
@@ -283,35 +316,7 @@ public class PlayerController : MonoBehaviour
             xSpeed = 0;
         }
         transform.Translate(new Vector3(xVelocity,0,0),Space.World);
-        if (grappling)
-        {
-            
-            grappleLine.SetActive(true);
-            Grapple(grapplePoint.x,grapplePoint.y,grappleLength);
-            if ((grappleLength > minGrappleLength && grappleTime > grappleShrinkDelay)) 
-            {
-                grappleLength -= 0.25f;
-            }
-            else if (grappleTime > grappleShrinkDelay)
-            {
-                grappleLength = minGrappleLength;
-            }
-            else
-            {
-                grappleTime += 1;
-            }
-            GetHitBoxAtPosition(transform.position.x+xVelocity+xSpeed,transform.position.y+yVelocity,0.9f,1f);
-            if (hit != null)
-            {
-                grappleLength -= 0.25f;
-            }
-            
-        }
-        else
-        {
-            
-            transform.rotation = Quaternion.Euler(transform.eulerAngles*0.9f);
-        }
+        
         
     }
 
