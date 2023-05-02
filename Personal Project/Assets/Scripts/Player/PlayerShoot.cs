@@ -21,6 +21,6 @@ public class PlayerShoot : MonoBehaviour
         {
             Instantiate(projectile,transform.position,transform.rotation);
         }
-        transform.rotation = startRotation;
+        //transform.rotation = startRotation;
     }
 }

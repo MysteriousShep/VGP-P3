@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     private Rigidbody enemyRb;
     private GameObject player;
+    public float powerupStrength = 2;
 
     void Start()
     {
@@ -22,6 +23,13 @@ public class Enemy : MonoBehaviour
         if (transform.position.y < -10)
         {
             Destroy(gameObject);
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PowerUpProjectile"))
+        {
+            GetComponent<Rigidbody>().AddForce((transform.position-player.transform.position)*powerupStrength,ForceMode.Impulse);
         }
     }
 }

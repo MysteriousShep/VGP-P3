@@ -229,8 +229,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dbce96023cd0be41b4a1ed9f51da5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1074353167129980314, guid: 1bb295e1bad47bc4283e6f284a9d7596, type: 3}
-  powerupPrefab: {fileID: 2715308389860027223, guid: 7d57835f3d2c6df409e8d1d0d8fcdfac, type: 3}
+  enemyPrefab:
+  - {fileID: 1074353167129980314, guid: 1bb295e1bad47bc4283e6f284a9d7596, type: 3}
+  - {fileID: 2789345653887588560, guid: da78710a9f105934280b21b5005ecd9c, type: 3}
+  powerupPrefab:
+  - {fileID: 2715308389860027223, guid: 7d57835f3d2c6df409e8d1d0d8fcdfac, type: 3}
+  - {fileID: 872402112070273533, guid: 3519881dfb2f65f47917e2b5f6939444, type: 3}
+  - {fileID: 2245373774033255482, guid: f849c7f57d7105443885c1f295dfa069, type: 3}
   spawnRange: 9
   enemyCount: 0
   waveNumber: 1
@@ -551,6 +556,11 @@ MonoBehaviour:
   speed: 5
   hasPowerup: 0
   powerupIndicator: {fileID: 7052254521511884894}
+  powerupProjectilePrefab: {fileID: 6088084513148044106, guid: 3a934898db6a6a64daf24e92d78b7187, type: 3}
+  hangTime: 0.5
+  smashSpeed: 20
+  explosionForce: 30
+  explosionRadius: 10
 --- !u!54 &1695509824
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -600,7 +610,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d90a77d38b719504f81919aae0653105, type: 2}
+  - {fileID: 2100000, guid: 4c97b24d72ebade4d98acaf3b75c90ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

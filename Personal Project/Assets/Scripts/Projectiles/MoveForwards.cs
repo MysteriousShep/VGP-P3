@@ -15,6 +15,7 @@ public class MoveForwards : MonoBehaviour
         {
             bounds = GetComponent<DeleteOutOfBounds>().bounds;
         }
+        transform.position = new Vector3(transform.position.x,transform.position.y+2.0f,transform.position.z);
     }
 
     // Update is called once per frame
