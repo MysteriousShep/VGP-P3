@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3638371545565122829}
-  m_Mesh: {fileID: 4300000, guid: fac3f861a349d484a91061b9ed7aa40d, type: 3}
+  m_Mesh: {fileID: 4300000, guid: cf2656555a2f4904f94b09943e34400f, type: 3}
 --- !u!23 &3638371545567378109
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b243f1f84ea457945900d7c80e573112, type: 2}
+  - {fileID: 2100000, guid: 9c0880e4cd8a8704e82b6940624b569a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.27469635, y: 0.4664595, z: 0.2746892}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.23322976, z: 0}
 --- !u!54 &7893561270539578738
 Rigidbody:
@@ -114,7 +114,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &5802669823545822868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b03c1af0e6ae04f8c924ba5d7980b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointValue: 3
+  explosionParticle: {fileID: 625621707174889904, guid: 1f6314fc2a94d1941956ef92adf6fe60, type: 3}
