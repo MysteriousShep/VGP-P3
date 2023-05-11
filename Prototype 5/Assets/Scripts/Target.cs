@@ -53,7 +53,7 @@ public class Target : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (transform.position.y > 0)
+        if (transform.position.y > 1.25f)
         {
             canGameOver = true;
         }
