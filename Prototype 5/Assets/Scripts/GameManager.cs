@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject titleScreen;
     private int lives = 3;
     public TextMeshProUGUI livesText;
+    public GameObject pausedScreen;
+    private bool paused = false;
 
     
     // Start is called before the first frame update
@@ -29,6 +31,8 @@ public class GameManager : MonoBehaviour
         spawnRate /= difficulty;
         lives = 3;
         UpdateLives(0);
+        paused = false;
+        Time.timeScale = 1;
     }
     public void UpdateLives(int livesToChange)
     {
@@ -59,9 +63,23 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
         isGameActive = false;
+        Time.timeScale = 0;
     }
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void Pause()
+    {
+        paused = !paused;
+        pausedScreen.SetActive(paused);
+        Time.timeScale = (Time.timeScale + 1) % 2;
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Pause();
+        }
     }
 }

@@ -34,7 +34,7 @@ public class Target : MonoBehaviour
     Vector3 RandomSpawnPos() {
         return new Vector3(Random.Range(-xRange,xRange),ySpawnPos);
     }
-    private void OnMouseDown()
+    public void DestroyTarget()
     {
         if (gameManager.isGameActive)
         {
