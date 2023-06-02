@@ -10,10 +10,19 @@ public class MoveCamera : MonoBehaviour
     public float dragXSpeed = 35;
     public float dragYSpeed = 59;
     public float zoomSpeed = 10;
+    public GameObject pixelObject;
+    private Camera pixelCamera;
+    public GameObject playerObject;
+    private Camera playerCamera;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (pixelObject != null) {
+            pixelCamera = pixelObject.GetComponent<Camera>();
+        }
+        if (playerObject != null) {
+            playerCamera = playerObject.GetComponent<Camera>();
+        }
     }
 
     // Update is called once per frame
@@ -50,5 +59,11 @@ public class MoveCamera : MonoBehaviour
             startRotation = Input.mousePosition;
         }
         Camera.main.orthographicSize -= Input.GetAxisRaw("Mouse ScrollWheel")*zoomSpeed;
+        if (pixelObject != null) {
+            pixelCamera.orthographicSize -= Input.GetAxisRaw("Mouse ScrollWheel")*zoomSpeed;
+        }
+        if (playerObject != null) {
+            playerCamera.orthographicSize -= Input.GetAxisRaw("Mouse ScrollWheel")*zoomSpeed;
+        }
     }
 }
